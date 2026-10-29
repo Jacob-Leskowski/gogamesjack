@@ -1,6 +1,6 @@
 from __future__ import annotations
-# from typing import Any
-# import os
+from typing import Any
+import os
 
 
 class siteInformation:
@@ -72,9 +72,14 @@ def mainNav(allSites: list[siteInformation]) -> str:
         )
     return r'<nav class="main-nav">' + "".join(iconButtons) + r"</nav>"
 
+def createPage(site: siteInformation, mainNav: str, subNav: str) -> str:
+    head: str = f'<!DOCTYPE html><html><head><title>Go Games Jack {site.name}</title><meta name="viewport" content="width=device-width,initial-scale=1"><link href="./style.css" rel="stylesheet"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /></head><body><h1 class="site-name">Go Games Jack</h1><main class="page-body"><nav class="sidebar"><nav class="top-nav">'
+    midSection: str = f'</nav><aside class="user-nav"> <a href="./login.html" class="material-symbols-outlined">account_circle </aside></a> <a href="./login.html">Login</aside> </a></nav><main class="page"><header class="page-header"> <img src="./assets/welcome.png" alt="Welcome" class="miniIcon"><h1 class="page-title">Welcome</h1></header><main class="page-content"><section class="content">'
+    footer: str = f'</section><footer class="rightBarFooter"><p><a href="../../Jacob Leskowski/index.html" target="_blank" rel="noopener noreferrer">JackLeskowski</aside> </a></p></footer></main></main></main></body></html>'
+    return head + mainNav + subNav + midSection + site.content + footer
 
-def basePage(info: siteInformation) -> str:
-    pass
+def createBrantch(site: siteInformation, allSites: list[siteInformation], mainNav: str) -> str:
+    return ""
 
 
 SITES: list[siteInformation] = [
@@ -97,16 +102,18 @@ SITES: list[siteInformation] = [
 
 print(mainNav(SITES))
 
-"""
-
-USE WHEN WORKING WITH OS
-
 
 def deleteAll() -> None:
-    # except assets/ & style.css & scripts/
-    pass
+    currentDir = os.getcwd()
+    for item in os.listdir(currentDir):
+        itemPath = os.path.join(currentDir, item)
+        if os.path.isfile(itemPath):
+            if item not in ["style.css", "php-gogamesjack.py"]:
+                os.remove(itemPath)
+        elif os.path.isdir(itemPath):
+            if item not in ["assets", "scripts"]:
+                os.rmdir(itemPath)
 
 def writeSite(information) -> None:
     with open("index.html", "w", encoding="utf-8") as file:
         file.write(information)
-"""
