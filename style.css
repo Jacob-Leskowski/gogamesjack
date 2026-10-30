@@ -283,29 +283,3 @@ nav a {
 .content p {
     text-indent: 2.5em;
 }
-
-@media (max-width: 1000px) {
-    .page-body {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        height: 64px;
-        flex-direction: row;
-    }
-
-    .main-nav {
-        flex-direction: row;
-        width: 100%;
-        margin-bottom: 0px;
-        overflow-x: auto;
-    }
-
-    .secondary-nav {
-        flex-direction: row;
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    
-}
