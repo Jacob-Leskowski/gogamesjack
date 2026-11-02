@@ -36,7 +36,7 @@
             },
             {
                 "name": "Snake",
-                "content": "<h2>Snake</h2><canvas id=\"snakeCanvas\" width=\"400\" height=\"400\"></canvas><script src=\"scripts/snake.js\"></script>",
+                "content": "<h2>Snake</h2><canvas id=\"snakeCanvas\" width=\"300\" height=\"300\"></canvas><script src=\"../scripts/snake.js\"></script>",
                 "children": [],
                 "imgPath": "snake.png"
             }
