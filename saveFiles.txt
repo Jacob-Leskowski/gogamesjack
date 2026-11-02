@@ -1,0 +1,8 @@
+style.css
+README.md
+.gitignore
+php_gogamesjack.py
+php_clear.py
+saveFiles.txt
+saveFolders.txt
+website.json

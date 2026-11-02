@@ -1,7 +1,7 @@
 from __future__ import annotations
-from typing import Any
-import os
 import shutil
+import json
+import os
 
 
 class siteInformation:
@@ -139,75 +139,102 @@ def createSites(
                 f.write(page)
 
 
-def deleteAll(
-    directory: str = os.getcwd(),
-    saveFolders: list[str] = [],
-    saveFiles: list[str] = [],
-) -> None:
-    # hard-codes folders & files that NEED to be saved
-    saveFolders.append("assets")
-    saveFolders.append("scripts")
-    saveFiles.append("style.css")
-    saveFiles.append("php-gogamesjack.py")
-    saveFiles.append("README.md")
+def deleteAll(directory: str = os.getcwd()) -> list[str] | None:
+    # saved folders
+
+    with open("saveFolders.txt", "r") as f:
+        saveFolders = [line.strip() for line in f.readlines()]
+
+    if ".git" not in saveFolders:
+        saveFolders.append(".git")
+
+    with open("saveFolders.txt", "w") as f:
+        f.write("\n".join(saveFolders))
+
+    # saved files
+
+    with open("saveFiles.txt", "r") as f:
+        saveFiles = [line.strip() for line in f.readlines()]
+
+    for file in [
+        "website.json",
+        "php_gogamesjack.py",
+        "php_clear.py",
+        "saveFiles.txt",
+        "saveFolders.txt",
+    ]:
+        if file not in saveFiles:
+            saveFiles.append(file)
+
+    with open("saveFiles.txt", "w") as f:
+        f.write("\n".join(saveFiles))
+
     currentDir = directory
+    killed: list[str] = []
     for item in os.listdir(currentDir):
         itemPath = os.path.join(currentDir, item)
         if os.path.isfile(itemPath):
             if item not in saveFiles:
+                killed.append(itemPath)
                 os.remove(itemPath)
         elif os.path.isdir(itemPath):
             if item not in saveFolders:
                 shutil.rmtree(itemPath)
+    return killed if killed else None
 
 
-SITES: list[siteInformation] = [
-    siteInformation(
-        "home",
-        "<h2>Welcome</h2><h3>What is Go Games Jack?</h3><p>Go Games Jack is a website that allows you to play games with your friends and family. You can play games online or locally. You can also play single player games.</p>",
-        [
-            siteInformation(
-                "welcome",
-                "<h2>Welcome</h2><h3>What is Go Games Jack?</h3><p>Go Games Jack is a website that allows you to play games with your friends and family. You can play games online or locally. You can also play single player games.</p>",
-            ),
-            siteInformation(
-                "leaderboard",
-                "<h2>Leaderboard</h2><h3>Snake</h3><table><tr><th>Rank</th><th>Player</th><th>Score</th></tr><tr><td>1</td><td>Player 1</td><td>100</td></tr></table><p>Stuff goes here.</p>",
-            ),
-            siteInformation(
-                "help",
-                "<h2>Help</h2><h3>Navigation</h3><p>Use the navigation bar on the far left to navigate between pages.</p><h3>Solo</h3><p>Solo games are played by one player against the computer. Simply go to the game's tab to play.</p><h3>Local</h3><p>Local games are played by two players on the same device. Simply go to the game's tab to play.</p>",
-            ),
-        ],
-    ),
-    siteInformation(
-        "solo",
-        "<h2>Scores</h2><h3>Snake</h3><table><tr><th>Rank</th><th>Player</th><th>Score</th></tr><tr><td>1</td><td>Player 1</td><td>100</td></tr><tr><td>2</td><td>Player 2</td><td>80</td></tr><tr><td>3</td><td>Player 3</td><td>60</td></tr></table>",
-        [
-            siteInformation(
-                "scores",
-                "<h2>Scores</h2><h3>Snake</h3><table><tr><th>Rank</th><th>Player</th><th>Score</th></tr><tr><td>1</td><td>Player 1</td><td>100</td></tr><tr><td>2</td><td>Player 2</td><td>80</td></tr><tr><td>3</td><td>Player 3</td><td>60</td></tr></table>",
-                imgPath="scoreboard",
-            ),
-            siteInformation("snake", "<h2>Snake</h2>", imgPath="snake"),
-        ],
-        "single",
-    ),
-    siteInformation(
-        "local",
-        "<h2>Controls</h2>",
-        [
-            siteInformation("controls", "<h2>Controls</h2>", imgPath="controls"),
-            siteInformation("pong", "<h2>Pong</h2>", imgPath="pong"),
-        ],
-        "local",
-    ),
-]
+def saveSites(SITES: list[siteInformation], filename: str = "website.json") -> None:
+
+    guess: str = input(
+        "THIS WILL REWRITE ALL OF THE SITES IN WEBSITE.JSON. INPUT THE PASSWORD TO CONTINUE: "
+    )
+    import uuid
+
+    if guess != str(uuid.uuid4()):
+        print("Incorrect password. Aborting.")
+        return
+
+    def siteInformationToDict(site: siteInformation) -> dict:
+        return {
+            "name": site.name,
+            "content": site.content,
+            "children": [siteInformationToDict(child) for child in site.children]
+            if site.children
+            else [],
+            "imgPath": site.imgPath,
+        }
+
+    with open(filename, "w") as f:
+        json.dump([siteInformationToDict(site) for site in SITES], f, indent=4)
+
+
+def loadSites(filename: str = "website.json") -> list[siteInformation]:
+
+    def dictToSiteInformation(
+        data: dict[
+            str, str | list[dict[str, str]]
+        ],  # I'm not fact checking this annotation
+    ) -> siteInformation:
+        # check for imgPath
+        if "imgPath" not in data:
+            data["imgPath"] = None
+        return siteInformation(
+            name=data["name"],
+            content=data["content"],
+            children=[dictToSiteInformation(child) for child in data["children"]]
+            if data["children"]
+            else [],
+            imgPath=data.get("imgPath"),
+        )
+
+    with open(filename, "r") as f:
+        data = json.load(f)
+    return [dictToSiteInformation(site) for site in data]
 
 
 def main() -> None:
     deleteAll()
-    # createSites(SITES)
+    createSites(loadSites())
 
 
 if __name__ == "__main__":

@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Home",
+        "content": "<h2>Welcome</h2><h3>What is Go Games Jack?</h3><p>Go Games Jack is a website that allows you to play games with your friends and family. You can play games online or locally. You can also play single player games.</p>",
+        "children": [
+            {
+                "name": "Welcome",
+                "content": "<h2>Welcome</h2><h3>What is Go Games Jack?</h3><p>Go Games Jack is a website that allows you to play games with your friends and family. You can play games online or locally. You can also play single player games.</p>",
+                "children": [],
+                "imgPath": "welcome.png"
+            },
+            {
+                "name": "Leaderboard",
+                "content": "<h2>Leaderboard</h2><h3>Snake</h3><table><tr><th>Rank</th><th>Player</th><th>Score</th></tr><tr><td>1</td><td>Player 1</td><td>100</td></tr></table><p>Stuff goes here.</p>",
+                "children": [],
+                "imgPath": "leaderboard.png"
+            },
+            {
+                "name": "Help",
+                "content": "<h2>Help</h2><h3>Navigation</h3><p>Use the navigation bar on the far left to navigate between pages.</p><h3>Solo</h3><p>Solo games are played by one player against the computer. Simply go to the game's tab to play.</p><h3>Local</h3><p>Local games are played by two players on the same device. Simply go to the game's tab to play.</p>",
+                "children": [],
+                "imgPath": "help.png"
+            }
+        ],
+        "imgPath": "home.png"
+    },
+    {
+        "name": "Solo",
+        "content": "<h2>Scores</h2><h3>Snake</h3><table><tr><th>Rank</th><th>Player</th><th>Score</th></tr><tr><td>1</td><td>Player 1</td><td>100</td></tr><tr><td>2</td><td>Player 2</td><td>80</td></tr><tr><td>3</td><td>Player 3</td><td>60</td></tr></table>",
+        "children": [
+            {
+                "name": "Scores",
+                "content": "<h2>Scores</h2><h3>Snake</h3><table><tr><th>Rank</th><th>Player</th><th>Score</th></tr><tr><td>1</td><td>Player 1</td><td>100</td></tr><tr><td>2</td><td>Player 2</td><td>80</td></tr><tr><td>3</td><td>Player 3</td><td>60</td></tr></table>",
+                "children": [],
+                "imgPath": "scoreboard.png"
+            },
+            {
+                "name": "Snake",
+                "content": "<h2>Snake</h2>",
+                "children": [],
+                "imgPath": "snake.png"
+            }
+        ],
+        "imgPath": "single.png"
+    },
+    {
+        "name": "Local",
+        "content": "<h2>Controls</h2>",
+        "children": [
+            {
+                "name": "Controls",
+                "content": "<h2>Controls</h2>",
+                "children": [],
+                "imgPath": "controls.png"
+            },
+            {
+                "name": "Pong",
+                "content": "<h2>Pong</h2>",
+                "children": [],
+                "imgPath": "pong.png"
+            }
+        ],
+        "imgPath": "local.png"
+    }
+]
