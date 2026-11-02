@@ -1,4 +1,6 @@
 style.css
+package.json
+package-lock.json
 README.md
 .gitignore
 php_gogamesjack.py

@@ -17,7 +17,7 @@
     --large-solo-color: #FF5757;
     --large-local-color: #2CDD25;
     --large-multi-color: #5FA6EB;
-    --basicEasing: cubic-bezier(0.66, 0, 0.34, 1);
+    --basicEasing: cubic-bezier(-0.2, 0, 0, 0.9);
 }
 
 html,
