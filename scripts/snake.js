@@ -12,7 +12,7 @@ if (!canvasContext) {
 }
 const context = canvasContext;
 
-const gridSize = 15;
+const gridSize = canvas.width / 5;
 const cellSize = canvas.width / gridSize;
 let snake = [
     { x: 7, y: 7 },
