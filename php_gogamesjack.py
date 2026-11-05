@@ -11,11 +11,13 @@ class siteInformation:
         content: str = "",
         children: list[siteInformation] | None = None,
         imgPath: str | None = None,
+        links: list[str] = [],
     ) -> None:
         self.name: str = name
         self.content: str = content
         self.children: list[siteInformation] | None = children
         self.imgPath: str | None = imgPath
+        self.links: list[str] = []
 
         # adjust name
         self.name = self.name.strip().title()
@@ -104,14 +106,34 @@ def allNav(
 
 
 def createPage(
-    allSites: list[siteInformation], selected: int = 0, subSelected: int | None = None
+    allSites: list[siteInformation],
+    selected: int = 0,
+    subSelected: int | None = None,
+    allLinks: list[str] = [],
 ) -> str:
     site: siteInformation = allSites[selected]
     if subSelected is None:
         subSelected = 0
     page: siteInformation = site.children[subSelected] if site.children else site
     prefix: str = "./" if subSelected == 0 else "../"
-    head: str = f'<!DOCTYPE html><html><head><title>Go Games Jack</title><meta name="viewport" content="width=device-width,initial-scale=1"><link href="{prefix}style.css" rel="stylesheet"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /></head><body><h1 class="site-name">Go Games Jack</h1><main class="page-body"><nav class="sidebar"><nav class="top-nav">'
+
+    print("testing links")
+    findLinks: list[str] = page.links + allLinks
+    headLinks: list[str] = []
+    for lnk in findLinks:
+        headLinks.append('<link href="')
+        if not lnk.startswith("https"):
+            headLinks[-1] += prefix
+        headLinks[-1] += lnk
+        headLinks[-1] += '"'
+        if lnk.endswith(".js"):
+            headLinks[-1] += ' rel="script"'
+        else:
+            headLinks[-1] += ' rel="stylesheet"'
+        headLinks[-1] += ">"
+
+    # <link href="{prefix}style.css" rel="stylesheet"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    head: str = f'<!DOCTYPE html><html><head><title>Go Games Jack</title><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><h1 class="site-name">Go Games Jack</h1><main class="page-body"><nav class="sidebar"><nav class="top-nav">'
     midSection: str = f'</nav><aside class="user-nav"><a href="{prefix}login.html" class="material-symbols-outlined">account_circle</a><a href="{prefix}login.html">Login</a></aside></nav><main class="page"><header class="page-header"><img src="{prefix}assets/{page.imgPath}" alt="{page.name}" class="miniIcon"><h1 class="page-title">{page.name}</h1></header><main class="page-content"><section class="content">'
     footer: str = f'</section><footer class="rightBarFooter"><p><a href="../../Jacob Leskowski/index.html" target="_blank" rel="noopener noreferrer">JackLeskowski</a></p></footer></main></main></main></body></html>'
     return (
@@ -124,12 +146,17 @@ def createPage(
 
 
 def createSites(
-    allSites: list[siteInformation] = [], directory: str = os.getcwd()
+    allSites: list[siteInformation] = [],
+    directory: str = os.getcwd(),
+    allLinks: list[str] = [
+        "style.css",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
+    ],
 ) -> None:
     for site in allSites:
         os.makedirs(f"{directory}/{site.file}", exist_ok=True)
         for index, subSit in enumerate(site.children):
-            page: str = createPage(allSites, allSites.index(site), index)
+            page: str = createPage(allSites, allSites.index(site), index, allLinks)
             outputPath: str = (
                 f"{directory}/{site.file}.html"
                 if index == 0
@@ -202,6 +229,7 @@ def saveSites(SITES: list[siteInformation], filename: str = "website.json") -> N
             if site.children
             else [],
             "imgPath": site.imgPath,
+            "links": site.links,
         }
 
     with open(filename, "w") as f:
@@ -212,7 +240,7 @@ def loadSites(filename: str = "website.json") -> list[siteInformation]:
 
     def dictToSiteInformation(
         data: dict[
-            str, str | list[dict[str, str]]
+            str, str | list[str] | list[dict[str, str | list[str]]]
         ],  # I'm not fact checking this annotation
     ) -> siteInformation:
         # check for imgPath
@@ -225,6 +253,7 @@ def loadSites(filename: str = "website.json") -> list[siteInformation]:
             if data["children"]
             else [],
             imgPath=data.get("imgPath"),
+            links=data.get("links"),
         )
 
     with open(filename, "r") as f:

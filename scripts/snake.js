@@ -1,5 +1,8 @@
 // general information used by both the front and back
 
+
+console.log("loaded");
+
 class int2 {
     constructor(x, y) {
         this.x = x;
@@ -123,6 +126,7 @@ function render(player, apple) {
 
         board.push(row);
     }
+    // ( index / length ) * 0.8 (so apples can be 1)
 }
 
 window.addEventListener("resize", () => {
