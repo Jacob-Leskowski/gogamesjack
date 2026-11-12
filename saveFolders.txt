@@ -3,3 +3,4 @@ refrences
 assets
 scripts
 .git
+venv

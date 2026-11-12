@@ -25,7 +25,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: var(--backdrop-color);
     color: var(--text-color);
 }
@@ -71,6 +71,7 @@ body {
     flex-direction: column;
     width: 88px;
     margin-bottom: 12px;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -129,7 +130,7 @@ body {
     height: 32px;
     margin: 4px 10px 4px 4px;
     border-radius: 100%;
-    border: 0px;
+    border: none;
     transition: width 1s var(--basicEasing), transform 1s var(--basicEasing);
     transition: height 1s var(--basicEasing), transform 1s var(--basicEasing);
     transition: margin 1s var(--basicEasing), transform 1s var(--basicEasing);
@@ -184,8 +185,21 @@ body {
     display: flex;
     flex-direction: column;
     width: 160px;
-    min-height: 0;
+    overflow-x: hidden;
     overflow-y: auto;
+}
+
+.secondary-nav .pesudotable ul {
+    display: flex;
+    flex-direction: row;
+}
+
+.secondary-nav ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .section-title {
@@ -205,12 +219,17 @@ body {
 }
 
 .mini-selector {
-    display: flex;
-    align-items: center;
     padding: 5px 10px 5px 0px;
     color: var(--text-color);
     border-radius: 9999px;
     transition: background-color 0.5s var(--basicEasing);
+}
+
+.mini-selector a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 .user-nav {
@@ -282,4 +301,112 @@ nav a {
 
 .content p {
     text-indent: 2.5em;
+}
+
+@media (max-width: 900px) {
+
+    .mini-selector-label,
+    #mini-selector-selected .mini-selector-label {
+        visibility: hidden;
+        width: 0px;
+        display: none;
+        flex: 0;
+    }
+
+    .secondary-nav {
+        width: 48px;
+        align-items: center;
+        overflow-x: hidden;
+    }
+
+    .mini-selector .smallIcon,
+    #mini-selector-selected .smallIcon {
+        align-items: center;
+        margin: 4px;
+    }
+
+    .smallIcon:hover,
+    .smallIcon:active {
+        margin: 0px;
+    }
+
+    .smallIcon {
+        align-items: center;
+        margin: 4px;
+    }
+
+    .mini-selector:hover .smallIcon {
+        width: 32px;
+        height: 32px;
+        margin: 4px;
+        border: none;
+    }
+
+    .mini-selector {
+        padding: 4px;
+    }
+
+    .rightBarFooter {
+        display: none
+    }
+}
+
+@media(max-width: 600px) {
+    .page-body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        flex-direction: row;
+        width: 100%;
+        height: 52px;
+    }
+
+    .main-nav,
+    .secondary-nav {
+        width: fit-content;
+        height: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-right: solid var(--border) 1px;
+        margin: 4px 4px;
+    }
+
+    .secondary-nav ul {
+        flex-direction: row;
+    }
+
+    .section-title {
+        display: none;
+    }
+
+    .largeIcon {
+        width: 32px;
+        height: 32px;
+        border-radius: 25%;
+        margin: 4px;
+        margin-bottom: 0;
+    }
+
+    #accountText {
+        display: none;
+    }
+
+    .largeIconLink:hover .largeIconBar,
+    .largeIconLink:hover #largeIconBarSelected {
+        width: 32px;
+        transition: width 1s var(--basicEasing), transform 1s var(--basicEasing);
+    }
+
+    .largeIconLink:active .largeIconBar,
+    .largeIconLink:active #largeIconBarSelected {
+        width: 0px;
+        transition: width 1s var(--basicEasing), transform 1s var(--basicEasing);
+    }
+
+    #largeIconBarSelected {
+        width: 16px;
+        transition: width 0.5s var(--basicEasing), transform 1s var(--basicEasing);
+    }
 }

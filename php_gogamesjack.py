@@ -79,28 +79,46 @@ def allNav(
         .replace('class="largeIcon"', 'class="largeIcon largeIconSelected"')
     )
     mainNav: str = r'<nav class="main-nav">' + "".join(iconButtons) + r"</nav>"
+    """
+    <nav class="secondary-nav">
+        <h1 class="section-title">Local</h1>
+        <table>
+            <tr class="mini-selector" id="mini-selector-selected">
+                <td><a href="./local.html" id="controls"><img src="./assets/controls.png" alt="Controls"
+                            class="smallIcon"></a></td>
+                <td class="mini-selector-label"><a href="./local.html" id="controls">Controls</a></td>
+            </tr>
+            <tr class="mini-selector">
+                <td><a href="./local/pong.html" id="pong"><img src="./assets/pong.png" alt="Pong"
+                            class="smallIcon"></a></td>
+                <td class="mini-selector-label"><a href="./local/pong.html" id="pong">Pong</a></td>
+            </tr>
+        </table>
+    </nav>
+    """
 
     # Sub Nav
     iconButtons: list[str] = []
     for childIndex, sit in enumerate(currentSite.children):
         href: str = pagePath(currentSite, childIndex)
         iconButtons.append(
-            f'<tr class="mini-selector">'
-            + f'<td><a href="{href}" id="{sit.file}"><img src="{currentPrefix}assets/{sit.imgPath}" alt="{sit.name}" class="smallIcon"></a></td>'
-            + f'<td class="mini-selector-label"><a href="{href}" id="{sit.file}">{sit.name}</a></td>'
-            + f"</tr>"
+            f'<li class="mini-selector">'
+            + f"<a href='{href}' id='{sit.file}'>"
+            + f'<img src="{currentPrefix}assets/{sit.imgPath}" alt="{sit.name}" class="smallIcon">'
+            + f'<p class="mini-selector-label">{sit.name}</p>'
+            + f"</a></li>"
         )
 
     # Selected Sub Nav Item
     iconButtons[subSelected] = iconButtons[subSelected].replace(
-        '<tr class="mini-selector">',
-        '<tr class="mini-selector" id="mini-selector-selected">',
+        '<li class="mini-selector">',
+        '<li class="mini-selector" id="mini-selector-selected">',
     )
 
     subNav: str = (
-        f'<nav class="secondary-nav"><h1 class="section-title">{currentSite.name}</h1><table>'
+        f'<nav class="secondary-nav"><h1 class="section-title">{currentSite.name}</h1><ul class="second-list">'
         + "".join(iconButtons)
-        + r"</table></nav>"
+        + r"</ul></nav>"
     )
     return mainNav + subNav
 
@@ -117,7 +135,6 @@ def createPage(
     page: siteInformation = site.children[subSelected] if site.children else site
     prefix: str = "./" if subSelected == 0 else "../"
 
-    print("testing links")
     findLinks: list[str] = page.links + allLinks
     headLinks: list[str] = []
     for lnk in findLinks:
@@ -133,8 +150,8 @@ def createPage(
         headLinks[-1] += ">"
 
     # <link href="{prefix}style.css" rel="stylesheet"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    head: str = f'<!DOCTYPE html><html><head><title>Go Games Jack</title><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><h1 class="site-name">Go Games Jack</h1><main class="page-body"><nav class="sidebar"><nav class="top-nav">'
-    midSection: str = f'</nav><aside class="user-nav"><a href="{prefix}login.html" class="material-symbols-outlined">account_circle</a><a href="{prefix}login.html">Login</a></aside></nav><main class="page"><header class="page-header"><img src="{prefix}assets/{page.imgPath}" alt="{page.name}" class="miniIcon"><h1 class="page-title">{page.name}</h1></header><main class="page-content"><section class="content">'
+    head: str = f'<!DOCTYPE html><html><head><title>Go Games Jack</title><meta name="viewport" content="width=device-width,initial-scale=1">{"".join(headLinks)}</head><body><h1 class="site-name">Go Games Jack</h1><main class="page-body"><nav class="sidebar"><nav class="top-nav">'
+    midSection: str = f'</nav><aside class="user-nav"><a href="{prefix}login.html" id="accountIcon" class="material-symbols-outlined">account_circle</a><a href="{prefix}login.html" id="accountText">Login</a></aside></nav><main class="page"><header class="page-header"><img src="{prefix}assets/{page.imgPath}" alt="{page.name}" class="miniIcon"><h1 class="page-title">{page.name}</h1></header><main class="page-content"><section class="content">'
     footer: str = f'</section><footer class="rightBarFooter"><p><a href="../../Jacob Leskowski/index.html" target="_blank" rel="noopener noreferrer">JackLeskowski</a></p></footer></main></main></main></body></html>'
     return (
         head
@@ -172,6 +189,10 @@ def deleteAll(directory: str = os.getcwd()) -> list[str] | None:
     with open("saveFolders.txt", "r") as f:
         saveFolders = [line.strip() for line in f.readlines()]
 
+    for folder in [".git", "venv"]:
+        if folder not in saveFolders:
+            saveFolders.append(file)
+
     if ".git" not in saveFolders:
         saveFolders.append(".git")
 
@@ -206,6 +227,7 @@ def deleteAll(directory: str = os.getcwd()) -> list[str] | None:
                 os.remove(itemPath)
         elif os.path.isdir(itemPath):
             if item not in saveFolders:
+                killed.append(itemPath)
                 shutil.rmtree(itemPath)
     return killed if killed else None
 
