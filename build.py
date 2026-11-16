@@ -1,4 +1,5 @@
 from __future__ import annotations
+from bs4 import BeautifulSoup
 import shutil
 import json
 import os
@@ -192,8 +193,10 @@ def createSites(
                 if index == 0
                 else f"{directory}/{site.file}/{subSit.file}.html"
             )
+            soup: BeautifulSoup = BeautifulSoup(page, "html.parser")
+            formated: str = soup.prettify()
             with open(outputPath, "w") as f:
-                f.write(page)
+                f.write(formated)
 
 
 def deleteAll(directory: str = os.getcwd()) -> list[str] | None:

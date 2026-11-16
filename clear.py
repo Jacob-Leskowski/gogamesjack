@@ -1,11 +1,15 @@
 from build import deleteAll, createPage, SiteInformation
+from bs4 import BeautifulSoup
 import os
 
 
 def addPrebuilt(site: SiteInformation, directory: str = os.getcwd()) -> None:
     page: str = createPage(site)
+    print(page[310:350])
+    soup = BeautifulSoup(page, "html.parser")
+    formated: str = soup.prettify()
     with open(f"{directory}/index.html", "w") as f:
-        f.write(page)
+        f.write(formated)
 
 
 def main() -> None:
@@ -30,3 +34,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# pip install beautifulsoup4 lxml html5lib requests
