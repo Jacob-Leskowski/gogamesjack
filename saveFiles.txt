@@ -8,3 +8,5 @@ php_clear.py
 saveFiles.txt
 saveFolders.txt
 website.json
+build.py
+clear.py
