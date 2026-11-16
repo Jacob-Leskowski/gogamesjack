@@ -176,6 +176,19 @@ def createPage(
     return head + midSection + page.content + footer
 
 
+def McKaylaify(page: str) -> str:
+    soup: BeautifulSoup = BeautifulSoup(page, "html.parser")
+    formated: str = soup.prettify()
+    # count spaces until it's a non space character for each line
+    newPage: str = ""
+    for line in formated.splitlines():
+        index: int = 0
+        while line[index] == " ":
+            index += 1
+        newPage += line.replace(" " * index, " " * (4 * index)) + "\n"
+    return newPage
+
+
 def createSites(
     allSites: list[SiteInformation] = [],
     directory: str = os.getcwd(),
@@ -193,10 +206,8 @@ def createSites(
                 if index == 0
                 else f"{directory}/{site.file}/{subSit.file}.html"
             )
-            soup: BeautifulSoup = BeautifulSoup(page, "html.parser")
-            formated: str = soup.prettify()
             with open(outputPath, "w") as f:
-                f.write(formated)
+                f.write(McKaylaify(page))
 
 
 def deleteAll(directory: str = os.getcwd()) -> list[str] | None:
@@ -205,12 +216,12 @@ def deleteAll(directory: str = os.getcwd()) -> list[str] | None:
     with open("saveFolders.txt", "r") as f:
         saveFolders = [line.strip() for line in f.readlines()]
 
-    for folder in [".git", "venv"]:
+    for folder in [
+        ".git",
+        ".venv",
+    ]:
         if folder not in saveFolders:
             saveFolders.append(folder)
-
-    if ".git" not in saveFolders:
-        saveFolders.append(".git")
 
     with open("saveFolders.txt", "w") as f:
         f.write("\n".join(saveFolders))
@@ -221,6 +232,7 @@ def deleteAll(directory: str = os.getcwd()) -> list[str] | None:
         saveFiles = [line.strip() for line in f.readlines()]
 
     for file in [
+        ".gitignore",
         "website.json",
         "build.py",
         "clear.py",

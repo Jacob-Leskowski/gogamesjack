@@ -1,15 +1,11 @@
-from build import deleteAll, createPage, SiteInformation
-from bs4 import BeautifulSoup
+from build import deleteAll, createPage, SiteInformation, McKaylaify
 import os
 
 
 def addPrebuilt(site: SiteInformation, directory: str = os.getcwd()) -> None:
     page: str = createPage(site)
-    print(page[310:350])
-    soup = BeautifulSoup(page, "html.parser")
-    formated: str = soup.prettify()
     with open(f"{directory}/index.html", "w") as f:
-        f.write(formated)
+        f.write(McKaylaify(page))
 
 
 def main() -> None:
