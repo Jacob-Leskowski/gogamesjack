@@ -63,7 +63,7 @@
             },
             {
                 "name": "Pong",
-                "content": "<h2>Pong</h2>",
+                "content": "<h2>Pong</h2><canvas id=\"pongCanvas\" width=\"400\" height=\"200\">Your browser does not support the HTML canvas element.</canvas>",
                 "children": [],
                 "imgPath": "pong.png",
                 "links": []

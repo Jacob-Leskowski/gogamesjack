@@ -1,0 +1,254 @@
+{
+  "version": 11,
+  "randomSeed": "5897ca2d8bc9465e886ec6c3135098af",
+  "graph": {
+    "viewport": {
+      "xmin": 194.93543100662765,
+      "ymin": -33.25223506500254,
+      "xmax": 1052.8107955556684,
+      "ymax": 783.8927534191431
+    },
+    "__v12ViewportLatexStash": {
+      "xmin": "194.93543100662765",
+      "xmax": "1052.8107955556684",
+      "ymin": "-33.25223506500254",
+      "ymax": "783.8927534191431"
+    }
+  },
+  "expressions": {
+    "list": [
+      {
+        "type": "folder",
+        "id": "6",
+        "title": "Ticker",
+        "collapsed": true
+      },
+      {
+        "type": "expression",
+        "id": "4",
+        "folderId": "6",
+        "color": "#388c46",
+        "latex": "F_{ollower}\\to\\left(\\operatorname{round}\\left(F_{ollower}.x+v_{oc}.x\\right),\\operatorname{round}\\left(F_{ollower}.y+v_{oc}.y\\right)\\right),v_{oc}\\to\\left(m_{inabs}\\left(v_{oc}.x+a_{cc}.x,\\max\\left(\\frac{\\min\\left(l_{en}\\left(d_{ir}\\right),100\\right)}{100},0.3\\right)\\left|n_{ormDir}.x\\right|v_{max}\\right),m_{inabs}\\left(v_{oc}.y+a_{cc}.y,\\max\\left(\\frac{\\min\\left(l_{en}\\left(d_{ir}\\right),100\\right)}{100},0.3\\right)\\left|n_{ormDir}.y\\right|v_{max}\\right)\\right),a_{cc}\\to\\left(m_{inabs}\\left(a_{cc}.x+n_{ormDir}.xa_{rate},\\left|n_{ormDir}.x\\right|a_{max}\\right),m_{inabs}\\left(a_{cc}.y+n_{ormDir}.ya_{rate},\\left|n_{ormDir}.y\\right|a_{max}\\right)\\right),i_{ndex}\\to\\left\\{\\operatorname{mod}\\left(f_{rame},25\\right)=0:\\operatorname{mod}\\left(i_{ndex},10000\\right)+1,i_{ndex}\\right\\}1,f_{rame}\\to f_{rame}+1"
+      },
+      {
+        "type": "expression",
+        "id": "8",
+        "folderId": "6",
+        "color": "#c74440",
+        "latex": "\\frac{1000}{60}"
+      },
+      {
+        "type": "folder",
+        "id": "9",
+        "title": "Screen",
+        "collapsed": true
+      },
+      {
+        "type": "expression",
+        "id": "10",
+        "folderId": "9",
+        "color": "#2d70b3",
+        "latex": "S_{creen}=\\left(1920,1080\\right)",
+        "hidden": true
+      },
+      {
+        "type": "expression",
+        "id": "12",
+        "folderId": "9",
+        "color": "#6042a6",
+        "latex": "M_{idScreen}=\\frac{S_{creen}}{2}",
+        "hidden": true
+      },
+      {
+        "type": "expression",
+        "id": "13",
+        "folderId": "9",
+        "color": "#000000",
+        "latex": "M_{idScreen}.x^{2}\\le\\left(x-M_{idScreen}.x\\right)^{2}",
+        "lines": false,
+        "fillOpacity": "1"
+      },
+      {
+        "type": "expression",
+        "id": "14",
+        "folderId": "9",
+        "color": "#000000",
+        "latex": "M_{idScreen}.y^{2}\\le\\left(y-M_{idScreen}.y\\right)^{2}",
+        "lines": false,
+        "fillOpacity": "1"
+      },
+      {
+        "type": "expression",
+        "id": "15",
+        "folderId": "9",
+        "color": "#000000",
+        "latex": "x=M_{idScreen}.x"
+      },
+      {
+        "type": "expression",
+        "id": "16",
+        "folderId": "9",
+        "color": "#000000",
+        "latex": "y=M_{idScreen}.y"
+      },
+      {
+        "type": "expression",
+        "id": "17",
+        "color": "#6042a6",
+        "latex": "f_{rame}=13931"
+      },
+      {
+        "type": "expression",
+        "id": "18",
+        "color": "#000000",
+        "latex": "i_{ndex}=9084"
+      },
+      {
+        "type": "expression",
+        "id": "22",
+        "color": "#388c46",
+        "latex": "L_{eader}=\\left(521,795\\right)"
+      },
+      {
+        "type": "expression",
+        "id": "19",
+        "color": "#2d70b3",
+        "latex": "F_{ollower}=\\left(526,819\\right)",
+        "dragMode": "NONE"
+      },
+      {
+        "type": "expression",
+        "id": "20",
+        "color": "#2d70b3",
+        "latex": "S_{hadowBase}=\\left(\\operatorname{random}\\left(10000\\right),\\operatorname{random}\\left(10000\\right)\\right)\\left[i_{ndex}\\right]",
+        "hidden": true
+      },
+      {
+        "type": "expression",
+        "id": "21",
+        "color": "#388c46",
+        "latex": "L_{eaderShadow}=\\left(L_{eader}.x+g_{eneralSpread}s_{pread}\\left(\\frac{S_{hadowBase}.x}{l_{en}\\left(S_{hadowBase}\\right)}\\right),L_{eader}.y+g_{eneralSpread}s_{pread}\\left(\\frac{S_{hadowBase}.y}{l_{en}\\left(S_{hadowBase}\\right)}\\right)\\right)"
+      },
+      {
+        "type": "expression",
+        "id": "23",
+        "color": "#000000",
+        "latex": "a_{cc}=\\left(-2.5785120429316617,-19.833085378842505\\right)",
+        "hidden": true
+      },
+      {
+        "type": "expression",
+        "id": "24",
+        "color": "#c74440",
+        "latex": "v_{oc}=\\left(-0.3867768064397492,-2.9749628068263756\\right)",
+        "hidden": true
+      },
+      {
+        "type": "expression",
+        "id": "25",
+        "color": "#2d70b3",
+        "latex": "d_{ir}=\\frac{L_{eaderShadow}-F_{ollower}}{2}"
+      },
+      {
+        "type": "expression",
+        "id": "26",
+        "color": "#388c46",
+        "latex": "n_{ormDir}=\\frac{d_{ir}}{l_{en}\\left(d_{ir}\\right)}\\ "
+      },
+      {
+        "type": "expression",
+        "id": "27",
+        "color": "#6042a6",
+        "latex": "d_{is}\\left(x,y\\right)=\\sqrt{\\left(x.x-y.x\\right)^{2}+\\left(x.y-y.y\\right)^{2}}"
+      },
+      {
+        "type": "expression",
+        "id": "28",
+        "color": "#000000",
+        "latex": "l_{en}\\left(x\\right)=d_{is}\\left(x,\\left(0,0\\right)\\right)"
+      },
+      {
+        "type": "expression",
+        "id": "29",
+        "color": "#c74440",
+        "latex": "m_{inabs}\\left(x,y\\right)=\\min\\left(\\left|x\\right|,y\\right)\\operatorname{sign}\\left(x\\right)"
+      },
+      {
+        "type": "expression",
+        "id": "30",
+        "color": "#2d70b3",
+        "latex": "s_{pread}\\left(x\\right)=2\\ \\frac{1}{1+\\ e^{-\\left(0.5\\left(-d_{istrobution}\\right)+\\ d_{istrobution}\\ \\cdot\\ x\\right)}}-1"
+      },
+      {
+        "type": "expression",
+        "id": "31",
+        "color": "#388c46",
+        "latex": "d_{istrobution}=11.5",
+        "slider": {
+          "hardMin": true,
+          "hardMax": true,
+          "min": "4",
+          "max": "32"
+        }
+      },
+      {
+        "type": "expression",
+        "id": "32",
+        "color": "#6042a6",
+        "latex": "g_{eneralSpread}=28",
+        "slider": {
+          "hardMin": true,
+          "hardMax": true,
+          "min": "10",
+          "max": "200",
+          "step": "1"
+        }
+      },
+      {
+        "type": "expression",
+        "id": "34",
+        "color": "#c74440",
+        "latex": "a_{rate}=5",
+        "slider": {
+          "hardMin": true,
+          "hardMax": true,
+          "min": "1",
+          "max": "20"
+        }
+      },
+      {
+        "type": "expression",
+        "id": "35",
+        "color": "#2d70b3",
+        "latex": "a_{max}=20",
+        "slider": {
+          "hardMin": true,
+          "hardMax": true,
+          "min": "1",
+          "max": "30"
+        }
+      },
+      {
+        "type": "expression",
+        "id": "36",
+        "color": "#388c46",
+        "latex": "v_{max}=10",
+        "slider": {
+          "hardMin": true,
+          "hardMax": true,
+          "min": "1",
+          "max": "30"
+        }
+      },
+      {
+        "type": "expression",
+        "id": "33",
+        "color": "#000000",
+        "latex": "F_{ollower}\\to\\left(0,0\\right),v_{oc}\\to\\left(0,0\\right),a_{cc}\\to\\left(0,0\\right)"
+      }
+    ]
+  },
+  "includeFunctionParametersInRandomSeed": true,
+  "doNotMigrateMovablePointStyle": true,
+  "_calculatorType": "GraphingCalculator"
+}
