@@ -13,7 +13,7 @@ def main() -> None:
 
     landing: SiteInformation = SiteInformation(
         name="Error",
-        content="<h2>Action Needed</h2><h3>Error: Unbuilt Website</h3><p>Please Run 'build.py' to build the website.</p>",
+        content="<h2>Action Needed</h2><h3>Error: Unbuilt Website</h3><p>Please Run 'build.py' to build the website.</p><script src='./scripts/navi.js'></script>",
         imgPath="action.png",
     )
     addPrebuilt(landing)
