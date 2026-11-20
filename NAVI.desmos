@@ -1,0 +1,30 @@
+{
+  "version": 11,
+  "randomSeed": "8e97ae9490ea3e0ac233f0568d7707ab",
+  "graph": {
+    "viewport": {
+      "xmin": -10,
+      "ymin": -8.537383177570096,
+      "xmax": 10,
+      "ymax": 8.537383177570096
+    },
+    "__v12ViewportLatexStash": {
+      "xmin": "-10",
+      "xmax": "10",
+      "ymin": "-8.537383177570096",
+      "ymax": "8.537383177570096"
+    }
+  },
+  "expressions": {
+    "list": [
+      {
+        "type": "expression",
+        "id": "1",
+        "color": "#c74440"
+      }
+    ]
+  },
+  "includeFunctionParametersInRandomSeed": true,
+  "doNotMigrateMovablePointStyle": true,
+  "_calculatorType": "GraphingCalculator"
+}

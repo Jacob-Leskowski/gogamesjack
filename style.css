@@ -303,6 +303,16 @@ nav a {
     text-indent: 2.5em;
 }
 
+#naviCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    pointer-events: none;
+}
+
 @media (max-width: 900px) {
 
     .mini-selector-label,
